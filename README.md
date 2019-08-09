@@ -10,7 +10,7 @@ This Magisk module installs the latest stable version of Nano to the target syst
 * Initial release
 
 ## Source Code
-* Source [git.savannah.gnu.org](http://git.savannah.gnu.org/cgit/nano.git/tree)
+* Source [git.savannah.gnu.org](http://git.savannah.gnu.org/cgit/nano.git)
 
 ## Module Source Code
 * Module [GitHub](https://github.com/henriknelson/nano-magisk-module)
