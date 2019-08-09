@@ -1,0 +1,6 @@
+id=nano_android
+name=nano for Android (aarch64)
+version=4.3
+versionCode=1
+author=nelshh
+description=A static compile of the latest stable version of the nano tool for android
