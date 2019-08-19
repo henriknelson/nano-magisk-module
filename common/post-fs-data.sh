@@ -5,8 +5,3 @@
 # This will make sure your module will still work
 # if Magisk change its mount point in the future
 MODDIR=${0%/*};
-
-mount -o rw,remount /system;
-mkdir -p /system/share;
-mount -o ro,remount /system;
-

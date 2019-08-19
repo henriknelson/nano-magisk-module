@@ -28,10 +28,10 @@ SKIPMOUNT=false
 PROPFILE=false
 
 # Set to true if you need post-fs-data script
-POSTFSDATA=true
+POSTFSDATA=false
 
 # Set to true if you need late_start service script
-LATESTARTSERVICE=false
+LATESTARTSERVICE=true
 
 ##########################################################################################
 # Replace list
@@ -149,20 +149,20 @@ set_permissions() {
   chown 0:0 $MODPATH/system/bin/nano $MODPATH/system/bin/nano.bin;
   chmod 755 $MODPATH/system/bin/nano $MODPATH/system/bin/nano.bin;
   ui_print "[4/8] Installing nanorc include file"
-  chown 0:0 $MODPATH/system/etc/nanorc;
-  chmod 755 $MODPATH/system/etc/nanorc;
+  chown 0:0 $MODPATH/system/usr/share/nanorc;
+  chmod 755 $MODPATH/system/usr/share/nanorc;
   ui_print "[5/8] Installing terminfo"
-  chown -R 0:0 $MODPATH/system/etc/terminfo;
-  find $MODPATH/system/etc/terminfo -type d -exec chmod 755 {} +;
-  find $MODPATH/system/etc/terminfo -type f -exec chmod 644 {} +;
+  chown -R 0:0 $MODPATH/system/usr/share/terminfo;
+  find $MODPATH/system/usr/share/terminfo -type d -exec chmod 755 {} +;
+  find $MODPATH/system/usr/share/terminfo -type f -exec chmod 644 {} +;
   ui_print "[6/8] Installing nanorc files"
-  chown -R 0:0 $MODPATH/system/etc/nano;
-  find $MODPATH/system/etc/nano -type d -exec chmod 755 {} +;
-  find $MODPATH/system/etc/nano -type f -exec chmod 644 {} +;
+  chown -R 0:0 $MODPATH/system/usr/share/nano;
+  find $MODPATH/system/usr/share/nano -type d -exec chmod 755 {} +;
+  find $MODPATH/system/usr/share/nano -type f -exec chmod 644 {} +;
   ui_print "[7/8] Installing libmagic database file"
-  chown -R 0:0 $MODPATH/system/share/misc;
-  find $MODPATH/system/share/misc -type d -exec chmod 755 {} +;
-  find $MODPATH/system/share/misc -type f -exec chmod 755 {} +;
+  chown -R 0:0 $MODPATH/system/usr/share/misc;
+  find $MODPATH/system/usr/share/misc -type d -exec chmod 755 {} +;
+  find $MODPATH/system/usr/share/misc -type f -exec chmod 755 {} +;
   ui_print "[7/8] Installation finished";
 }
 
