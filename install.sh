@@ -31,7 +31,7 @@ PROPFILE=false
 POSTFSDATA=false
 
 # Set to true if you need late_start service script
-LATESTARTSERVICE=true
+LATESTARTSERVICE=false
 
 ##########################################################################################
 # Replace list
@@ -122,50 +122,52 @@ REPLACE="
 # Set what you want to display when installing your module
 
 print_modname() {
-ui_print "******************************"
-ui_print "        Nano for Android      "
-ui_print "    nelshh @ xda-developers   "
-ui_print "******************************"
+  ui_print "*********************************************"
+  ui_print "     nano for Android                        "
+  ui_print "         - v 4.9                             "
+  ui_print "         - built by nelshh @ xda-developers  "
+  ui_print "*********************************************"
 }
 
 # Copy/extract your module files into $MODPATH in on_install.
-
 on_install() {
-  # The following is the default implementation: extract $ZIPFILE/system to $MODPATH
-  # Extend/change the logic to whatever you want
-  ui_print "[1/8] Extracting files..";
-  unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2;
-  ui_print "[2/8] Setting permissions..";
+  ui_print "[1/7] Extracting files..";
+  unzip -o "$ZIPFILE" '*' -d $MODPATH >&2;
+  ui_print "[2/7] Setting permissions..";
 }
-
-# Only some special files require specific permissions
-# This function will be called after on_install is done
-# The default permissions should be good enough for most cases
 
 set_permissions() {
   # The following is the default rule, DO NOT remove
   set_perm_recursive $MODPATH 0 0 0755 0644;
-  ui_print "[3/8] Installing nano executables"
-  chown 0:0 $MODPATH/system/bin/nano $MODPATH/system/bin/nano.bin;
-  chmod 755 $MODPATH/system/bin/nano $MODPATH/system/bin/nano.bin;
-  ui_print "[4/8] Installing nanorc include file"
-  chown 0:0 $MODPATH/system/usr/share/nanorc;
-  chmod 755 $MODPATH/system/usr/share/nanorc;
-  ui_print "[5/8] Installing terminfo"
+
+  ui_print "[3/7] Installing to /system/bin..";
+  chown -R 0:0 $MODPATH/system/bin;
+  chmod -R 755 $MODPATH/system/bin;
+  find $MODPATH/system/bin -type f -exec chmod 755 {} \+;
+  find $MODPATH/system/bin -type l -exec chmod 755 {} \+;
+
+  ui_print "[4/7] Installing to /system/usr/share/terminfo..";
   chown -R 0:0 $MODPATH/system/usr/share/terminfo;
-  find $MODPATH/system/usr/share/terminfo -type d -exec chmod 755 {} +;
-  find $MODPATH/system/usr/share/terminfo -type f -exec chmod 644 {} +;
-  ui_print "[6/8] Installing nanorc files"
-  chown -R 0:0 $MODPATH/system/usr/share/nano;
-  find $MODPATH/system/usr/share/nano -type d -exec chmod 755 {} +;
-  find $MODPATH/system/usr/share/nano -type f -exec chmod 644 {} +;
-  ui_print "[7/8] Installing libmagic database file"
+  chmod -R 755 $MODPATH/system/usr/share/terminfo;
+  find $MODPATH/system/usr/share/terminfo -type d -exec chmod 755 {} \+;
+  find $MODPATH/system/usr/share/terminfo -type f -exec chmod 644 {} \+;
+
+  ui_print "[5/7] Installing libmagic database file"
   chown -R 0:0 $MODPATH/system/usr/share/misc;
   find $MODPATH/system/usr/share/misc -type d -exec chmod 755 {} +;
   find $MODPATH/system/usr/share/misc -type f -exec chmod 755 {} +;
-  ui_print "[7/8] Installation finished";
+
+
+  ui_print "[6/7] Installing to /data/man..";
+  mkdir -p /data/man;
+  cp -r $MODPATH/custom/man/* /data/man/;
+  chmod -R 664 /data/man;
+  chown -R 0:0 /data/man;
+  find /data/man -type d -exec chmod 755 {} \+;
+  find /data/man -type f -exec chmod 664 {} \+;
+  if [[ -s "/system/bin/mandoc" ]]; then
+     makewhatis /data/man;
+  fi
+
+  ui_print "[7/7] Installation finished";
 }
-
-# You can add more functions to assist your custom script code
-
-
