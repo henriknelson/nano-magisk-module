@@ -1,6 +1,6 @@
 id=nano-nelshh
 name=nano for Android
-version=4.9
-versionCode=14
+version=4.9.2
+versionCode=16
 author=nelshh
 description=A statically built version of nano for android (aarch64)

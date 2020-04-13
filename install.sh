@@ -124,7 +124,7 @@ REPLACE="
 print_modname() {
   ui_print "*********************************************"
   ui_print "     nano for Android                        "
-  ui_print "         - v 4.9                             "
+  ui_print "         - v 4.9.2                             "
   ui_print "         - built by nelshh @ xda-developers  "
   ui_print "*********************************************"
 }
@@ -150,10 +150,11 @@ set_permissions() {
   chown -R 0:0 $MODPATH/system/usr/share/terminfo;
   chmod -R 755 $MODPATH/system/usr/share/terminfo;
   find $MODPATH/system/usr/share/terminfo -type d -exec chmod 755 {} \+;
-  find $MODPATH/system/usr/share/terminfo -type f -exec chmod 644 {} \+;
+  find $MODPATH/system/usr/share/terminfo -type f -exec chmod 755 {} \+;
 
   ui_print "[5/7] Installing libmagic database file"
   chown -R 0:0 $MODPATH/system/usr/share/misc;
+  chmod -R 755 $MODPATH/system/usr/share/misc;
   find $MODPATH/system/usr/share/misc -type d -exec chmod 755 {} +;
   find $MODPATH/system/usr/share/misc -type f -exec chmod 755 {} +;
 
@@ -161,10 +162,10 @@ set_permissions() {
   ui_print "[6/7] Installing to /data/man..";
   mkdir -p /data/man;
   cp -r $MODPATH/custom/man/* /data/man/;
-  chmod -R 664 /data/man;
+  chmod -R 755 /data/man;
   chown -R 0:0 /data/man;
   find /data/man -type d -exec chmod 755 {} \+;
-  find /data/man -type f -exec chmod 664 {} \+;
+  find /data/man -type f -exec chmod 755 {} \+;
   if [[ -s "/system/bin/mandoc" ]]; then
      makewhatis /data/man;
   fi
