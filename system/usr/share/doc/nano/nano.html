@@ -45,7 +45,7 @@ ul.no-bullet {list-style: none}
 
 
 <span id="Top"></span><span id="SEC_Top"></span>
-<p>This manual documents the GNU <code>nano</code> editor, version 5.0.
+<p>This manual documents the GNU <code>nano</code> editor, version 5.2.
 </p>
 <table class="menu" border="0" cellspacing="0">
 <tr><td align="left" valign="top">&bull; <a href="#Introduction" accesskey="1">Introduction</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
@@ -58,11 +58,11 @@ ul.no-bullet {list-style: none}
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Built_002din-Help" accesskey="5">Built-in Help</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Feature-Toggles" accesskey="6">Feature Toggles</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-File-Browser" accesskey="6">The File Browser</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Nanorc-Files" accesskey="7">Nanorc Files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Feature-Toggles" accesskey="7">Feature Toggles</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-File-Browser" accesskey="8">The File Browser</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Nanorc-Files" accesskey="8">Nanorc Files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Pico-Compatibility" accesskey="9">Pico Compatibility</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
@@ -385,6 +385,7 @@ position to the end of the line, instead of cutting the entire line.
 <dt><samp>-l</samp></dt>
 <dt><samp>--linenumbers</samp></dt>
 <dd><p>Display line numbers to the left of the text area.
+(Any line with an anchor additionally gets a mark in the margin.)
 </p>
 </dd>
 <dt><samp>-m</samp></dt>
@@ -664,6 +665,8 @@ inherits the anchor.  After performing an operation on the entire buffer
 spell check on it), any anchors that were present are gone.  And when
 you close the buffer, all its anchors simply disappear; they are not saved.
 </p>
+<p>Anchors are visualized in the margin when line numbers are activated.
+</p>
 <hr>
 <span id="Limitations"></span><span id="Limitations-1"></span><h3 class="section">4.9 Limitations</h3>
 
@@ -682,7 +685,26 @@ and <kbd>^V</kbd> (Page Down) keys.  <kbd>^X</kbd> exits from the help system.
 </p>
 
 <hr>
-<span id="Feature-Toggles"></span><span id="Feature-Toggles-1"></span><h2 class="chapter">6 Feature Toggles</h2>
+<span id="The-File-Browser"></span><span id="The-File-Browser-1"></span><h2 class="chapter">6 The File Browser</h2>
+
+<p>When in the Read-File (<kbd>^R</kbd>) or Write-Out menu (<kbd>^O</kbd>),
+pressing <kbd>^T</kbd> will invoke the file browser.
+Here, one can navigate directories in a graphical manner in order to
+find the desired file.
+</p>
+<p>Basic movement in the file browser is accomplished with the arrow and
+other cursor-movement keys.  More targeted movement is accomplished by
+searching, via <kbd>^W</kbd> or <kbd>w</kbd>, or by changing directory, via
+<kbd>^_</kbd> or <kbd>g</kbd>.  The behavior of the <kbd>Enter</kbd> key (or <kbd>s</kbd>)
+varies by what is currently selected.
+If the currently selected object is a directory, the file browser will
+enter and display the contents of the directory.  If the object is a
+file, this filename and path are copied to the status bar, and the file
+browser exits.
+</p>
+
+<hr>
+<span id="Feature-Toggles"></span><span id="Feature-Toggles-1"></span><h2 class="chapter">7 Feature Toggles</h2>
 
 <p>Toggles allow you to change on-the-fly certain aspects of the editor
 which would normally be specified via command-line options.  They are
@@ -747,7 +769,7 @@ The following global toggles are available:
 
 
 <hr>
-<span id="Nanorc-Files"></span><span id="Nanorc-Files-1"></span><h2 class="chapter">7 Nanorc Files</h2>
+<span id="Nanorc-Files"></span><span id="Nanorc-Files-1"></span><h2 class="chapter">8 Nanorc Files</h2>
 
 <p>The nanorc files contain the default settings for <code>nano</code>.  During
 startup, if <samp>--rcfile</samp> is not given, <code>nano</code> will read two files:
@@ -784,7 +806,7 @@ The last double quote on the line will be seen as the closing quote.
 </table>
 
 <hr>
-<span id="Settings"></span><span id="Settings-1"></span><h3 class="section">7.1 Settings</h3>
+<span id="Settings"></span><span id="Settings-1"></span><h3 class="section">8.1 Settings</h3>
 
 <p>The supported settings in a nanorc file are:
 </p>
@@ -921,14 +943,15 @@ See <a href="#set-functioncolor"><code>set functioncolor</code></a> for valid co
 </dd>
 <dt><code>set linenumbers</code></dt>
 <dd><p>Display line numbers to the left of the text area.
+(Any line with an anchor additionally gets a mark in the margin.)
 </p>
 </dd>
 <dt><code>set locking</code></dt>
 <dd><p>Enable vim-style lock-files for when editing files.
 </p>
-</dd>
+<span id="set-matchbrackets"></span></dd>
 <dt><code>set matchbrackets &quot;<var>characters</var>&quot;</code></dt>
-<dd><p>Set the opening and closing brackets that can be found by bracket
+<dd><p>Specify the opening and closing brackets that can be found by bracket
 searches.  This may not include blank characters.  The opening set must
 come before the closing set, and the two sets must be in the same order.
 The default value is <tt>&quot;(&lt;[{)&gt;]}&quot;</tt>.
@@ -1146,7 +1169,7 @@ probably want to unset <code>wordbounds</code>.
 </dl>
 
 <hr>
-<span id="Syntax-Highlighting"></span><span id="Syntax-Highlighting-1"></span><h3 class="section">7.2 Syntax Highlighting</h3>
+<span id="Syntax-Highlighting"></span><span id="Syntax-Highlighting-1"></span><h3 class="section">8.2 Syntax Highlighting</h3>
 
 <p>Coloring the different syntactic elements of a file
 is done via regular expressions (see the <code>color</code> command below).
@@ -1294,7 +1317,7 @@ in one of the system-installed files (which normally are not writable).
 </dl>
 
 <hr>
-<span id="Rebinding-Keys"></span><span id="Rebinding-Keys-1"></span><h3 class="section">7.3 Rebinding Keys</h3>
+<span id="Rebinding-Keys"></span><span id="Rebinding-Keys-1"></span><h3 class="section">8.3 Rebinding Keys</h3>
 
 <p>Key bindings can be changed via the following three commands in a
 nanorc file:
@@ -1587,12 +1610,13 @@ from the end of the file (and end of the line).
 </p>
 </dd>
 <dt><code>findbracket</code></dt>
-<dd><p>Moves the cursor to the bracket (brace, parenthesis, etc.) that matches
-(pairs) with the one under the cursor.
+<dd><p>Moves the cursor to the bracket (or brace or parenthesis, etc.) that matches
+(pairs) with the one under the cursor.  See <a href="#set-matchbrackets"><code>set matchbrackets</code></a>.
 </p>
 </dd>
 <dt><code>anchor</code></dt>
 <dd><p>Places an anchor at the current line, or removes it when already present.
+(An anchor is visible when line numbers are activated.)
 </p>
 </dd>
 <dt><code>prevanchor</code></dt>
@@ -1888,25 +1912,6 @@ it means all menus where the specified <code>key</code> exists.
 
 
 <hr>
-<span id="The-File-Browser"></span><span id="The-File-Browser-1"></span><h2 class="chapter">8 The File Browser</h2>
-
-<p>When in the Read-File (<kbd>^R</kbd>) or Write-Out menu (<kbd>^O</kbd>),
-pressing <kbd>^T</kbd> will invoke the file browser.
-Here, one can navigate directories in a graphical manner in order to
-find the desired file.
-</p>
-<p>Basic movement in the file browser is accomplished with the arrow and
-other cursor-movement keys.  More targeted movement is accomplished by
-searching, via <kbd>^W</kbd> or <kbd>w</kbd>, or by changing directory, via
-<kbd>^_</kbd> or <kbd>g</kbd>.  The behavior of the <kbd>Enter</kbd> key (or <kbd>s</kbd>)
-varies by what is currently selected.
-If the currently selected object is a directory, the file browser will
-enter and display the contents of the directory.  If the object is a
-file, this filename and path are copied to the status bar, and the file
-browser exits.
-</p>
-
-<hr>
 <span id="Pico-Compatibility"></span><span id="Pico-Compatibility-1"></span><h2 class="chapter">9 Pico Compatibility</h2>
 
 <p><code>nano</code> emulates Pico quite closely, but there
@@ -2183,14 +2188,14 @@ curses libraries.
     <li><a id="toc-Limitations-1" href="#Limitations">4.9 Limitations</a></li>
   </ul></li>
   <li><a id="toc-Built_002din-Help-1" href="#Built_002din-Help">5 Built-in Help</a></li>
-  <li><a id="toc-Feature-Toggles-1" href="#Feature-Toggles">6 Feature Toggles</a></li>
-  <li><a id="toc-Nanorc-Files-1" href="#Nanorc-Files">7 Nanorc Files</a>
+  <li><a id="toc-The-File-Browser-1" href="#The-File-Browser">6 The File Browser</a></li>
+  <li><a id="toc-Feature-Toggles-1" href="#Feature-Toggles">7 Feature Toggles</a></li>
+  <li><a id="toc-Nanorc-Files-1" href="#Nanorc-Files">8 Nanorc Files</a>
   <ul class="no-bullet">
-    <li><a id="toc-Settings-1" href="#Settings">7.1 Settings</a></li>
-    <li><a id="toc-Syntax-Highlighting-1" href="#Syntax-Highlighting">7.2 Syntax Highlighting</a></li>
-    <li><a id="toc-Rebinding-Keys-1" href="#Rebinding-Keys">7.3 Rebinding Keys</a></li>
+    <li><a id="toc-Settings-1" href="#Settings">8.1 Settings</a></li>
+    <li><a id="toc-Syntax-Highlighting-1" href="#Syntax-Highlighting">8.2 Syntax Highlighting</a></li>
+    <li><a id="toc-Rebinding-Keys-1" href="#Rebinding-Keys">8.3 Rebinding Keys</a></li>
   </ul></li>
-  <li><a id="toc-The-File-Browser-1" href="#The-File-Browser">8 The File Browser</a></li>
   <li><a id="toc-Pico-Compatibility-1" href="#Pico-Compatibility">9 Pico Compatibility</a></li>
   <li><a id="toc-Building-and-Configure-Options-1" href="#Building-and-Configure-Options">10 Building and Configure Options</a></li>
 </ul>
