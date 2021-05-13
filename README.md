@@ -6,6 +6,9 @@ This Magisk module installs the latest stable version of Nano to the target syst
 
 ## Change Log
 
+### v1.6 - 2021-05-13
+* Updated Nano to v5.7
+
 ### v1.5 - 2021-03-18
 * Updated Nano to v5.6.1
 

@@ -124,7 +124,7 @@ REPLACE="
 print_modname() {
   ui_print "*********************************************"
   ui_print "     nano for Android                        "
-  ui_print "         - v 5.6.1                             "
+  ui_print "         - v 5.7                             "
   ui_print "         - built by nelshh @ xda-developers  "
   ui_print "*********************************************"
 }
